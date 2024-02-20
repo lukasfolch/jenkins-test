@@ -17,6 +17,11 @@ pipeline {
 				sh 'echo "REACT_APP_STAGE=production" >> .env'
 			}
 		}
+        stage('Install') {
+            steps {
+                sh 'npm install'
+            }
+        }
 		stage('build') {
 			steps {
 				sh 'npm run build'
