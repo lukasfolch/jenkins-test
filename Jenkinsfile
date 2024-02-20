@@ -8,7 +8,7 @@ def prodRoute = ""
 pipeline {
 	agent any
 	tools {
-		nodejs "nodejs_21.6.2"
+		nodejs_21.6.2 "nodejs_21.6.2"
 	}
 	stages {
 		stage('env') {
