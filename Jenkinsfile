@@ -39,7 +39,7 @@ pipeline {
 				sh "cf api https://api.scapp-console.swisscom.com --skip-ssl-validation"
 				sh "cf auth"
 				sh "cf target -o '${org}' -s ${devEnv.space}"
-				sh 'cf push jenkinstest -b staticfile_buildpack -k 2G'
+				sh 'cf push jenkinstest -b staticfile_buildpack -k 512M'
 				}
                 
 			}
