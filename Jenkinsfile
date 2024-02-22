@@ -1,7 +1,8 @@
 def org = "GHR-POD-NEX-13_AutoContentTestsystem"
 def src = "./"
 
-def devEnv = [name:"jenkins-test", space: "development", cfcredid: "cf-inventorytool-dev-test", route: "", envfile: "env.dev.json"]
+def devRoute = [hostname:"time-tracker-dev", domain:""]
+def devEnv = [name:"jenkins-test", space: "development", cfcredid: "cf-inventorytool-dev-test", routes: [devRoute], envfile: "env.dev.json"]
 
 def prodRoute = ""
 
@@ -15,8 +16,16 @@ pipeline {
 			steps {
 				sh 'echo "REACT_APP_PORT=3000" >> .env'
 				sh 'echo "REACT_APP_STAGE=production" >> .env'
+				NPM_TOKEN = credentials('91d408c9-64a9-4f79-b8ec-33aa56b47d9b')
 			}
 		}
+		stage('prepare .npmrc') {
+            steps {
+                script {
+                    writeFile file: '.npmrc', text: "_authToken=${env.NPM_TOKEN}\nalways-auth=true"
+                }
+            }
+        }
         stage('Install') {
             steps {
                 sh 'npm install'
