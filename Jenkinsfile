@@ -12,32 +12,25 @@ pipeline {
 		nodejs "nodejs_19"
 	}
 	stages {
+		stage('deps') {
+			steps {
+				sh 'npm install --global yarn'
+			}
+		}
 		stage('env') {
 			steps {
 				sh 'echo "REACT_APP_PORT=3000" >> .env'
 				sh 'echo "REACT_APP_STAGE=production" >> .env'
 			}
 		}
-		stage('prepare .npmrc') {
-            steps {
-				withCredentials([string(credentialsId: '4246882f-66fb-45c4-9560-8ce123ee56d4', variable: 'NPM_TOKEN')]) {
-                    // Directly write the .npmrc content without exposing the token in logs
-                    // Dynamically generate .npmrc with the correct token
-                    sh """
-                    echo "registry=https://bin.swisscom.com/artifactory/api/npm/swisscom-npm-virtual/" > .npmrc
-                    echo "//bin.swisscom.com/artifactory/api/npm/swisscom-npm-virtual/:_authToken=\$NPM_TOKEN" >> .npmrc
-                    """
-                }
-            }
-        }
         stage('Install') {
             steps {
-                sh 'npm install'
+                sh 'yarn'
             }
         }
 		stage('build') {
 			steps {
-				sh 'npm run build'
+				sh 'yarn build'
 			}
 		}
 		stage('deploy') {
