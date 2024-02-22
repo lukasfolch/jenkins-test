@@ -35,10 +35,13 @@ pipeline {
 		}
 		stage('deploy') {
 			steps {
-                sh "cf api https://api.scapp-console.swisscom.com --skip-ssl-validation"
-                sh "cf auth"
-                sh "cf target -o '${org}' -s ${devEnv.space}"
+				withCredentials([usernamePassword(credentialsId: "e8f83859-f3d5-4a1b-af8a-dc7f016295fc", passwordVariable: "CF_PASSWORD", usernameVariable: "CF_USERNAME")]) {
+				sh "cf api https://api.scapp-console.swisscom.com --skip-ssl-validation"
+				sh "cf auth"
+				sh "cf target -o '${org}' -s ${devEnv.space}"
 				sh 'cf push jenkinstest -b staticfile_buildpack -k 2G'
+				}
+                
 			}
 		}
 	}
