@@ -23,8 +23,10 @@ pipeline {
 		}
 		stage('prepare .npmrc') {
             steps {
-                script {
-                    writeFile file: '.npmrc', text: "_authToken=${env.NPM_TOKEN}\nalways-auth=true"
+                withCredentials([string(credentialsId: '91d408c9-64a9-4f79-b8ec-33aa56b47d9b', variable: 'NPM_TOKEN')]) {
+                    script {
+                        writeFile file: '.npmrc', text: "//registry.npmjs.org/:_authToken=$NPM_TOKEN\nalways-auth=true"
+                    }
                 }
             }
         }
