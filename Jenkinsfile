@@ -10,7 +10,6 @@ pipeline {
 	agent any
 	tools {
 		nodejs "nodejs_21.6.2"
-		'Cloud Foundry CLI'
 	}
 	stages {
 		stage('env') {
