@@ -11,12 +11,14 @@ pipeline {
 	tools {
 		nodejs "nodejs_21.6.2"
 	}
+	environment {
+        NPM_TOKEN = credentials('91d408c9-64a9-4f79-b8ec-33aa56b47d9b')
+    }
 	stages {
 		stage('env') {
 			steps {
 				sh 'echo "REACT_APP_PORT=3000" >> .env'
 				sh 'echo "REACT_APP_STAGE=production" >> .env'
-				NPM_TOKEN = credentials('91d408c9-64a9-4f79-b8ec-33aa56b47d9b')
 			}
 		}
 		stage('prepare .npmrc') {
