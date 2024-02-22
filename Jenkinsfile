@@ -35,7 +35,7 @@ pipeline {
 		}
 		stage('deploy') {
 			steps {
-				withCredentials([usernamePassword(credentialsId: cfcredid, passwordVariable: "CF_PASSWORD", usernameVariable: "CF_USERNAME")]) {
+				withCredentials([usernamePassword(credentialsId: devEnv.cfcredid, passwordVariable: "CF_PASSWORD", usernameVariable: "CF_USERNAME")]) {
 				sh "cf api https://api.scapp-console.swisscom.com --skip-ssl-validation"
 				sh "cf auth"
 				sh "cf target -o '${org}' -s ${devEnv.space}"
