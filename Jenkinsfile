@@ -20,7 +20,7 @@ pipeline {
 		}
 		stage('prepare .npmrc') {
             steps {
-				withCredentials([string(credentialsId: '91d408c9-64a9-4f79-b8ec-33aa56b47d9b', variable: 'NPM_TOKEN')]) {
+				withCredentials([string(credentialsId: '4246882f-66fb-45c4-9560-8ce123ee56d4', variable: 'NPM_TOKEN')]) {
                     // Directly write the .npmrc content without exposing the token in logs
                     // Dynamically generate .npmrc with the correct token
                     sh """
