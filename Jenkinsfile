@@ -36,7 +36,9 @@ pipeline {
                     // Check if 'cf' command exists, if not install it
                     if (sh(returnStatus: true, script: 'which cf') != 0) {
                         echo "Installing Cloud Foundry CLI..."
-                        sh 'curl -L "https://packages.cloudfoundry.org/stable?release=linux64-binary&source=github" | tar -zx -C /usr/local/bin'
+                        sh 'curl -L --insecure "https://packages.cloudfoundry.org/stable?release=linux64-binary&source=github" | tar -zx -C /usr/local/bin'
+
+
                     } else {
                         echo "Cloud Foundry CLI already installed."
                     }
