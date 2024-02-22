@@ -10,6 +10,7 @@ pipeline {
 	agent any
 	tools {
 		nodejs "nodejs_21.6.2"
+		'Cloud Foundry CLI'
 	}
 	stages {
 		stage('env') {
@@ -37,8 +38,6 @@ pipeline {
                     if (sh(returnStatus: true, script: 'which cf') != 0) {
                         echo "Installing Cloud Foundry CLI..."
                         sh 'curl -L --insecure "https://packages.cloudfoundry.org/stable?release=linux64-binary&source=github" | tar -zx -C /usr/local/bin'
-
-
                     } else {
                         echo "Cloud Foundry CLI already installed."
                     }
