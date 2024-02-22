@@ -1,4 +1,4 @@
-def org = "GHR-POD-NEX-13_AutoContentTestsystem"
+def org = "INI-ONE-WSN-EIS-NWS_LAN-I_Tools"
 def src = "./"
 
 def devRoute = [hostname:"time-tracker-dev", domain:""]
