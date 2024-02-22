@@ -22,8 +22,11 @@ pipeline {
             steps {
 				withCredentials([string(credentialsId: '91d408c9-64a9-4f79-b8ec-33aa56b47d9b', variable: 'NPM_TOKEN')]) {
                     // Directly write the .npmrc content without exposing the token in logs
-                    sh 'echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc'
-                    sh 'echo "always-auth=true" >> .npmrc'
+                    // Dynamically generate .npmrc with the correct token
+                    sh """
+                    echo "registry=https://bin.swisscom.com/artifactory/api/npm/swisscom-npm-virtual/" > .npmrc
+                    echo "//bin.swisscom.com/artifactory/api/npm/swisscom-npm-virtual/:_authToken=\$NPM_TOKEN" >> .npmrc
+                    """
                 }
             }
         }
