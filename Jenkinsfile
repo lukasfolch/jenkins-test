@@ -11,9 +11,6 @@ pipeline {
 	tools {
 		nodejs "nodejs_21.6.2"
 	}
-	environment {
-        NPM_TOKEN = credentials('91d408c9-64a9-4f79-b8ec-33aa56b47d9b')
-    }
 	stages {
 		stage('env') {
 			steps {
@@ -23,10 +20,10 @@ pipeline {
 		}
 		stage('prepare .npmrc') {
             steps {
-                withCredentials([string(credentialsId: '91d408c9-64a9-4f79-b8ec-33aa56b47d9b', variable: 'NPM_TOKEN')]) {
-                    script {
-                        writeFile file: '.npmrc', text: "//registry.npmjs.org/:_authToken=$NPM_TOKEN\nalways-auth=true"
-                    }
+				withCredentials([string(credentialsId: '91d408c9-64a9-4f79-b8ec-33aa56b47d9b', variable: 'NPM_TOKEN')]) {
+                    // Directly write the .npmrc content without exposing the token in logs
+                    sh 'echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc'
+                    sh 'echo "always-auth=true" >> .npmrc'
                 }
             }
         }
