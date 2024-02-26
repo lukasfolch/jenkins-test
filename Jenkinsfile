@@ -12,11 +12,11 @@ pipeline {
 		nodejs "nodejs_19"
 	}
 	stages {
-		stage('deps') {
-			steps {
-				sh 'npm install --global yarn'
-			}
-		}
+		// stage('deps') {
+		// 	steps {
+		// 		sh 'npm install --global yarn'
+		// 	}
+		// }
 		stage('env') {
 			steps {
 				sh 'echo "REACT_APP_PORT=3000" >> .env'
@@ -25,12 +25,12 @@ pipeline {
 		}
         stage('Install') {
             steps {
-                sh 'yarn'
+                sh 'npm install'
             }
         }
 		stage('build') {
 			steps {
-				sh 'yarn build'
+				sh 'npm run build'
 			}
 		}
 		stage('deploy') {
