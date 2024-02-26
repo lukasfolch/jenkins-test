@@ -25,7 +25,13 @@ pipeline {
 		}
         stage('Install') {
             steps {
-                sh 'npm install'
+				withCredentials([usernamePassword(credentialsId: '4f12af1a-936e-47ce-bdb2-d94ecc975cd7', usernameVariable: 'ARTIFACTORY_USER', passwordVariable: 'ARTIFACTORY_PASS')]) {
+                    sh '''
+                    echo "registry=https://bin.swisscom.com/artifactory/api/npm/swisscom-npm-virtual/" > .npmrc
+                    echo "//bin.swisscom.com/artifactory/api/npm/swisscom-npm-virtual/:_authToken=${ARTIFACTORY_PASS}" >> .npmrc
+                    npm install
+                    '''
+                }
             }
         }
 		stage('build') {
