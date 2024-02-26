@@ -40,7 +40,6 @@ pipeline {
 				sh "cf auth"
 				sh "cf target -o '${org}' -s ${devEnv.space}"
 				sh 'cf push jenkinstest -b staticfile_buildpack -k 512M -m 128M --no-route'
-				sh "cf map-route ${devEnv.name} ${devEnv.routes[i].domain} --hostname ${devEnv.routes[i].hostname}"
 				}
                 
 			}
