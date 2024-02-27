@@ -25,10 +25,10 @@ pipeline {
 		}
         stage('Install') {
             steps {
-				withCredentials([usernamePassword(credentialsId: '4246882f-66fb-45c4-9560-8ce123ee56d4', usernameVariable: 'ARTIFACTORY_USER', passwordVariable: 'ARTIFACTORY_PASS')]) {
+				withCredentials([string(credentialsId: '94384ee4-6d6c-4f96-9eb4-e94f3cfd4678', variable: 'NPM_TOKEN')]) {
                     sh '''
                     echo "registry=https://bin.swisscom.com/artifactory/api/npm/swisscom-npm-virtual/" > .npmrc
-                    echo "//bin.swisscom.com/artifactory/api/npm/swisscom-npm-virtual/:_authToken=${ARTIFACTORY_PASS}" >> .npmrc
+                    echo "//bin.swisscom.com/artifactory/api/npm/swisscom-npm-virtual/:_authToken=${NPM_TOKEN}" >> .npmrc
                     npm install
                     '''
                 }
